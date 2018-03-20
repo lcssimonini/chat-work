@@ -6,7 +6,7 @@
 **Valor do projeto 5 pontos**<br><br>
 
 1. Baseados nos códigos apresentados em sala de aula usando a tecnoglogia
-de Socktes com Threads, faça:<br>
+de Sockets com Threads, faça:<br>
 - Para o ultimo exemplo feito em Java usando Threads colocar uma interface gráfica<br>
 para deixar o exemplo mais fácil de utilizar.<br>
 - Implementar o envio de mensagens reservadas sendToOne<br>

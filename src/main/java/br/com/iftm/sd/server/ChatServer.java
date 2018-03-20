@@ -4,13 +4,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChatServer extends Thread {
-    private static List<PrintStream> clientes;
+
+    private static final String LEFT_CHAT = " saiu ";
+
+    private static List<PrintStream> clientes = new ArrayList<>();
     private Socket conexao;
     private String meuNome;
 
@@ -18,43 +20,34 @@ public class ChatServer extends Thread {
         conexao = s;
     }
 
-    public static void main(String[] args) throws IOException {
-        clientes = new ArrayList<>();
-
-        ServerSocket s = new ServerSocket(2000);
-
-        while (true){
-            System.out.print("Esperando conectar...");
-            Socket conexao = s.accept();
-            System.out.println(" Conectou!");
-            Thread t = new ChatServer(conexao);
-            t.start();
-        }
-
-    }
-
-    public void run(){
-        BufferedReader entrada;
+    public void run() {
+        BufferedReader input;
         try {
-            entrada = new BufferedReader(new InputStreamReader(conexao.getInputStream()));
+            input = getServerInput();
             PrintStream saida = new PrintStream(conexao.getOutputStream());
-            meuNome = entrada.readLine();
+            meuNome = input.readLine();
             if (meuNome == null){
                 return;
             }
             clientes.add(saida);
-            String linha = entrada.readLine();
-            while ((linha != null)&&(!linha.trim().equals(""))){
+            String linha = input.readLine();
+
+            while ((linha != null)&&(!linha.trim().isEmpty())) {
                 sendToAll(saida," disse: ",linha);
-                linha = entrada.readLine();
+                linha = input.readLine();
             }
-            sendToAll(saida," saiu "," do Chat!");
+
+            sendToAll(saida, LEFT_CHAT," do Chat!");
             clientes.remove(saida);
             conexao.close();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private BufferedReader getServerInput() throws IOException {
+        return new BufferedReader(new InputStreamReader(conexao.getInputStream()));
     }
 
 
@@ -64,11 +57,16 @@ public class ChatServer extends Thread {
                 chat.println(meuNome + acao + linha);
             }
 
-            if(acao == " saiu ") {
-                if (chat == saida)
-                    chat.println("");
+            if(LEFT_CHAT.equals(acao)) {
+                if (saida.equals(chat)) {
+                    printEmptyString(chat);
+                }
             }
         });
+    }
+
+    private void printEmptyString(PrintStream chat) {
+        chat.println("");
     }
 }
 
