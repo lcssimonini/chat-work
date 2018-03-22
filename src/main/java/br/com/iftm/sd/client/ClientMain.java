@@ -27,7 +27,7 @@ public class ClientMain {
 
         String linha;
 
-        while (true){
+        while (true) {
             if (t.isDone()){
                 break;
             }
@@ -36,6 +36,5 @@ public class ClientMain {
             linha = teclado.readLine();
             saida.println(linha);
         }
-
     }
 }

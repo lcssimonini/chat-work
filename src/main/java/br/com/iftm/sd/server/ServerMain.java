@@ -13,12 +13,12 @@ public class ServerMain {
         ServerSocket serverSocket = new ServerSocket(2000);
 
         while (true) {
-            System.out.print(WAITING_CONNECTION);
+            System.out.println(WAITING_CONNECTION);
             Socket conexao = serverSocket.accept();
             System.out.println(CONNECTED);
-            Thread t = new ChatServer(conexao);
-            t.start();
+            ChatServer server = new ChatServer(conexao);
+            server.start();
+            System.out.println(server.printAllClientInformation());
         }
-
     }
 }
