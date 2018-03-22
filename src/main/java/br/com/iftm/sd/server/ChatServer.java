@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ChatServer extends Thread {
@@ -15,6 +16,7 @@ public class ChatServer extends Thread {
     private static List<PrintStream> clientes = new ArrayList<>();
     private Socket conexao;
     private String meuNome;
+    private static ArrayList<String> users = new ArrayList<>(Arrays.asList("Digite o número correspondente: 0 - Enviar para todos"));
 
     public ChatServer(Socket s){
         conexao = s;
@@ -26,6 +28,7 @@ public class ChatServer extends Thread {
             input = getServerInput();
             PrintStream saida = new PrintStream(conexao.getOutputStream());
             meuNome = input.readLine();
+            users.add(users.size()+" - "+meuNome);
             if (meuNome == null){
                 return;
             }
@@ -68,6 +71,11 @@ public class ChatServer extends Thread {
     private void printEmptyString(PrintStream chat) {
         chat.println("");
     }
+    
+	public void sendChoices() throws IOException {
+		PrintStream envio = new PrintStream(conexao.getOutputStream());
+		envio.println(this.nomes.toString());
+	}
 }
 
 
