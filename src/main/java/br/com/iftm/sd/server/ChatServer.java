@@ -1,8 +1,6 @@
 package br.com.iftm.sd.server;
 
-import br.com.iftm.sd.client.AllClientInformation;
-import br.com.iftm.sd.client.ClientInformation;
-import org.apache.commons.lang3.StringUtils;
+import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,7 +10,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.apache.commons.lang3.StringUtils.isEmpty;
+import br.com.iftm.sd.client.AllClientInformation;
+import br.com.iftm.sd.client.ClientInformation;
+import br.com.iftm.sd.log.DocumentLog;
 
 public class ChatServer extends Thread {
 
@@ -22,9 +22,10 @@ public class ChatServer extends Thread {
 
     private static List<PrintStream> clientStreams = new ArrayList<>();
     private Socket socket;
+    private DocumentLog writeLogger = new DocumentLog();
     private static List<ClientInformation> connectedClientNames = new ArrayList<>();
+    private static List<String> clientsMessages = new ArrayList<>();
     private AllClientInformation allClientInformation = new AllClientInformation();
-//    private static List<String> connectedClientNames = new ArrayList<>(Arrays.asList("Digite o número correspondente: 0 - Enviar para todos"));
 
     public ChatServer(Socket s){
         socket = s;
@@ -40,7 +41,6 @@ public class ChatServer extends Thread {
             input = getServerInput();
             PrintStream saida = new PrintStream(socket.getOutputStream());
             String clientName = input.readLine();
-//            connectedClientNames.add(connectedClientNames.size()+" - "+clientName);
             if (clientName == null) {
                 return;
             }
@@ -49,10 +49,12 @@ public class ChatServer extends Thread {
 
             while (!isEmpty(linha)) {
                 sendToAll(saida, clientName, DISSE,linha);
+                clientsMessages.add(clientName + " " + DISSE + " " + linha);
                 linha = input.readLine();
             }
 
             removeClient(saida, clientName);
+            writeLogger.writeLog(clientsMessages);
             socket.close();
 
         } catch (IOException e) {
@@ -68,6 +70,7 @@ public class ChatServer extends Thread {
 
     private void removeClient(PrintStream saida, String clientName) throws IOException {
         sendToAll(saida, clientName, LEFT_CHAT," do Chat!");
+        clientsMessages.add(clientName + " " + LEFT_CHAT + " do Chat!");
         allClientInformation.removeClientInformation(clientName);
         clientStreams.remove(saida);
     }
@@ -94,11 +97,6 @@ public class ChatServer extends Thread {
     private void printEmptyString(PrintStream chat) {
         chat.println("");
     }
-//
-//	public void sendChoices() throws IOException {
-//		PrintStream envio = new PrintStream(socket.getOutputStream());
-//		envio.println(connectedClientNames.toString());
-//	}
 }
 
 
