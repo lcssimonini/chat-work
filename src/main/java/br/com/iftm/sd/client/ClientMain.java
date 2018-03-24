@@ -5,36 +5,34 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.UUID;
 
 public class ClientMain {
 
+    private static final String ENTER_YOUR_NAME = "Entre com o seu nome: ";
+
     public static void main(String[] args) throws IOException {
-        Socket conexao = new Socket("localhost",2000);
+        Socket connection = getSocketConnection();
 
-        PrintStream saida = new PrintStream(conexao.getOutputStream());
-
-        BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
-
-        System.out.print("Entre com o seu nome: ");
-
-        String meuNome = teclado.readLine();
-
-        saida.println(meuNome);
-
-        ChatClient t = new ChatClient(conexao);
-
-        t.start();
-
-        String linha;
+        PrintStream output = new PrintStream(connection.getOutputStream());
+        BufferedReader keyboardReader = new BufferedReader(new InputStreamReader(System.in));
+        output.print(ENTER_YOUR_NAME);
+        String clientName = keyboardReader.readLine();
+        output.println(clientName);
+        ChatClient chatClient = new ChatClient(connection);
+        chatClient.start();
 
         while (true) {
-            if (t.isDone()){
+            if (chatClient.isDone()) {
                 break;
             }
 
-            System.out.println("> ");
-            linha = teclado.readLine();
-            saida.println(linha);
+            output.println("> ");
+            output.println(keyboardReader.readLine());
         }
+    }
+
+    private static Socket getSocketConnection() throws IOException {
+        return new Socket(UUID.randomUUID().toString(),2000);
     }
 }
