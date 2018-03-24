@@ -22,13 +22,13 @@ public class ChatServer extends Thread {
 
     private static List<PrintStream> clientStreams = new ArrayList<>();
     private Socket socket;
-    private DocumentLog writeLogger = new DocumentLog();
+    private DocumentLog logWritter = new DocumentLog();
     private static List<ClientInformation> connectedClientNames = new ArrayList<>();
     private static List<String> clientsMessages = new ArrayList<>();
     private AllClientInformation allClientInformation = new AllClientInformation();
 
-    public ChatServer(Socket s){
-        socket = s;
+    public ChatServer(Socket socket){
+        this.socket = socket;
     }
 
     public String printAllClientInformation() {
@@ -44,7 +44,7 @@ public class ChatServer extends Thread {
             if (clientName == null) {
                 return;
             }
-            addClient(saida, clientName);
+            addClient(saida, clientName, socket);
             String linha = input.readLine();
 
             while (!isEmpty(linha)) {
@@ -54,7 +54,7 @@ public class ChatServer extends Thread {
             }
 
             removeClient(saida, clientName);
-            writeLogger.writeLog(clientsMessages);
+            logWritter.writeLog(clientsMessages);
             socket.close();
 
         } catch (IOException e) {
@@ -62,8 +62,8 @@ public class ChatServer extends Thread {
         }
     }
 
-    private void addClient(PrintStream saida, String clientName) {
-        allClientInformation.addClientInformation(clientName);
+    private void addClient(PrintStream saida, String clientName, Socket socket) {
+        allClientInformation.addClientInformation(clientName,  socket);
         clientStreams.add(saida);
 
     }

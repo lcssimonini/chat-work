@@ -24,6 +24,5 @@ public class DocumentLog {
 		}
 	   
 	   writer.close();
-
 	}
 }

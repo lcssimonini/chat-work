@@ -3,6 +3,7 @@ package br.com.iftm.sd.client;
 import lombok.Builder;
 import lombok.ToString;
 
+import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -16,8 +17,8 @@ public class AllClientInformation {
     @Builder.Default
     private Map<Integer, ClientInformation> clientInformationMap = new HashMap<>();
 
-    public void addClientInformation(String name) {
-        clientInformationMap.put(clientCount, new ClientInformation(name));
+    public void addClientInformation(String name, Socket socket) {
+        clientInformationMap.put(clientCount, new ClientInformation(name, socket));
         clientCount++;
     }
 
