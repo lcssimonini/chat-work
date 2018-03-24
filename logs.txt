@@ -16,3 +16,13 @@
 <localhost>@<127.0.0.1>@<60024>#<[joana disse: oi, atarina disse: olas, joao disse: asdasd]>
 <localhost>@<127.0.0.1>@<60038>#<[atarina disse: asd]>
 <localhost>@<127.0.0.1>@<60030>#<[joana disse: asdasd]>
+<localhost>@<127.0.0.1>@<60148>#<[atarina disse: ola]>
+<localhost>@<127.0.0.1>@<60132>#<[atarina disse: ola, juca disse: hey]>
+<localhost>@<127.0.0.1>@<60188>#<[juca disse: ola]>
+<localhost>@<127.0.0.1>@<60182>#<[juca disse: ola, alice disse: beleza]>
+<localhost>@<127.0.0.1>@<60796>#<[joana disse: ola]>
+<localhost>@<127.0.0.1>@<60912>#<[catarina disse: ola]>
+<localhost>@<127.0.0.1>@<60912>#<[catarina disse: e ae]>
+<localhost>@<127.0.0.1>@<60904>#<[catarina disse: e ae, alice disse: massa]>
+<localhost>@<127.0.0.1>@<60898>#<[catarina disse: e ae, alice disse: massa, joana disse: doido]>
+<localhost>@<127.0.0.1>@<60898>#<[joana disse: joias]>

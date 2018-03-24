@@ -18,7 +18,6 @@ public class ServerMain {
             System.out.println(CONNECTED);
             ChatServer server = new ChatServer(conexao);
             server.start();
-            System.out.println(server.printAllClientInformation());
         }
     }
 

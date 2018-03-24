@@ -17,6 +17,10 @@ public class AllClientInformation {
     @Builder.Default
     private Map<Integer, ClientInformation> clientInformationMap = new HashMap<>();
 
+    public ClientInformation getClientInformation(Integer index) {
+        return clientInformationMap.get(index);
+    }
+
     public void addClientInformation(ClientInformation clientInformation) {
         clientInformationMap.put(clientCount, clientInformation);
         clientCount++;
@@ -42,7 +46,8 @@ public class AllClientInformation {
 
     public String printAllClientInformation() {
         StringBuffer buffer = new StringBuffer();
-        clientInformationMap.forEach((key, value) -> buffer.append(key).append(" ").append(value).append("\n"));
-        return buffer.toString();
+        clientInformationMap.forEach((key, value) -> buffer.append(key).append(" -- ").append(value.getName()).append("\n"));
+        String info = buffer.toString();
+        return info.substring(0, info.length()-2);
     }
 }
