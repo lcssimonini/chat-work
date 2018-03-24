@@ -17,23 +17,23 @@ public class AllClientInformation {
     @Builder.Default
     private Map<Integer, ClientInformation> clientInformationMap = new HashMap<>();
 
-    public void addClientInformation(String name, Socket socket) {
-        clientInformationMap.put(clientCount, new ClientInformation(name, socket));
+    public void addClientInformation(ClientInformation clientInformation) {
+        clientInformationMap.put(clientCount, clientInformation);
         clientCount++;
     }
 
     public void removeClientInformation(String name) {
+        removeInformation(name);
         clientCount--;
-        removeInformation(new ClientInformation(name));
     }
 
-    private void removeInformation(ClientInformation information) {
-        Optional.ofNullable(getKeyByValue(information)).map(k -> clientInformationMap.remove(k));
+    private void removeInformation(String  name) {
+        Optional.ofNullable(getKeyByValue(name)).map(k -> clientInformationMap.remove(k));
     }
 
-    private Integer getKeyByValue(ClientInformation value) {
+    private Integer getKeyByValue(String name) {
         for (Map.Entry<Integer, ClientInformation> entry : clientInformationMap.entrySet()) {
-            if (Objects.equals(value, entry.getValue())) {
+            if (Objects.equals(name, entry.getValue().getName())) {
                 return entry.getKey();
             }
         }

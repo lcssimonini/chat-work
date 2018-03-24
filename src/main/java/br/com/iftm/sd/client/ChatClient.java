@@ -9,6 +9,7 @@ import java.net.Socket;
 
 public class ChatClient extends Thread {
 
+    public static final String EMPTY_STRING = "";
     @Getter
     private boolean done = false;
     private Socket conexao;
@@ -25,13 +26,11 @@ public class ChatClient extends Thread {
             String linha;
             while (true){
                 linha = entrada.readLine();
-                if (linha.trim().equals("")) {
+                if (EMPTY_STRING.equals(linha.trim())) {
                     System.out.println("Conexao encerrada!!!");
                     break;
                 }
-                System.out.println();
-                System.out.println(linha);
-                System.out.print("...> ");
+                printMessage(linha);
             }
 
             done = true;
@@ -40,5 +39,10 @@ public class ChatClient extends Thread {
             e.printStackTrace();
         }
 
+    }
+
+    private void printMessage(String linha) {
+        System.out.println("\n"+linha);
+        System.out.print("...>\n");
     }
 }

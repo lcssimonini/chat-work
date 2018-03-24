@@ -13,6 +13,7 @@ import java.util.List;
 import br.com.iftm.sd.client.AllClientInformation;
 import br.com.iftm.sd.client.ClientInformation;
 import br.com.iftm.sd.log.DocumentLog;
+import com.google.common.collect.ImmutableMap;
 
 public class ChatServer extends Thread {
 
@@ -23,7 +24,6 @@ public class ChatServer extends Thread {
     private static List<PrintStream> clientStreams = new ArrayList<>();
     private Socket socket;
     private DocumentLog logWritter = new DocumentLog();
-    private static List<ClientInformation> connectedClientNames = new ArrayList<>();
     private static List<String> clientsMessages = new ArrayList<>();
     private AllClientInformation allClientInformation = new AllClientInformation();
 
@@ -44,17 +44,19 @@ public class ChatServer extends Thread {
             if (clientName == null) {
                 return;
             }
-            addClient(saida, clientName, socket);
+            ClientInformation information = new ClientInformation(clientName, socket);
+            addClient(saida, information);
             String linha = input.readLine();
 
             while (!isEmpty(linha)) {
                 sendToAll(saida, clientName, DISSE,linha);
-                clientsMessages.add(clientName + " " + DISSE + " " + linha);
+                clientsMessages.add(clientName + SEPARATOR + DISSE + SEPARATOR + linha);
+                writeMessageLogs(information);
                 linha = input.readLine();
+                clientsMessages.clear();
             }
 
             removeClient(saida, clientName);
-            logWritter.writeLog(clientsMessages);
             socket.close();
 
         } catch (IOException e) {
@@ -62,8 +64,12 @@ public class ChatServer extends Thread {
         }
     }
 
-    private void addClient(PrintStream saida, String clientName, Socket socket) {
-        allClientInformation.addClientInformation(clientName,  socket);
+    private void writeMessageLogs(ClientInformation information) {
+        logWritter.writeLog(ImmutableMap.of(information, clientsMessages));
+    }
+
+    private void addClient(PrintStream saida, ClientInformation clientinformation) {
+        allClientInformation.addClientInformation(clientinformation);
         clientStreams.add(saida);
 
     }

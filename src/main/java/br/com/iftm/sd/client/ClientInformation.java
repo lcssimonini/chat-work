@@ -1,9 +1,6 @@
 package br.com.iftm.sd.client;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.net.Socket;
 
@@ -11,6 +8,7 @@ import java.net.Socket;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString
 public class ClientInformation {
 
     private String name;
@@ -22,6 +20,7 @@ public class ClientInformation {
     public ClientInformation(String name,  Socket socket) {
         this.name = name;
         this.host = socket.getInetAddress().getHostName();
-        this.ipAddress = socket.getInetAddress().get
+        this.ipAddress = socket.getInetAddress().getHostAddress();
+        this.serverPort = socket.getPort();
     }
 }
