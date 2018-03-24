@@ -1,0 +1,18 @@
+<localhost>@<127.0.0.1>@<59926>#<[juca disse: oi]>
+<localhost>@<127.0.0.1>@<59920>#<[juca disse: oi, luiz disse: e ae]>
+<localhost>@<127.0.0.1>@<59926>#<[juca disse: bom]>
+<localhost>@<127.0.0.1>@<59920>#<[luiz disse: iasihuasdu]>
+<localhost>@<127.0.0.1>@<59926>#<[juca disse: hey]>
+<localhost>@<127.0.0.1>@<59920>#<[luiz disse: oi]>
+<localhost>@<127.0.0.1>@<59980>#<[aria disse: ola]>
+<localhost>@<127.0.0.1>@<59974>#<[aria disse: ola, luiz disse: oi aria]>
+<localhost>@<127.0.0.1>@<59974>#<[luiz disse: joia]>
+<localhost>@<127.0.0.1>@<59992>#<[luiz disse: joia, banana disse: belezas]>
+<localhost>@<127.0.0.1>@<59980>#<[aria disse: sussa]>
+<localhost>@<127.0.0.1>@<59974>#<[luiz disse: firmeza]>
+<localhost>@<127.0.0.1>@<59992>#<[banana disse: doido]>
+<localhost>@<127.0.0.1>@<60030>#<[joana disse: oi]>
+<localhost>@<127.0.0.1>@<60038>#<[joana disse: oi, atarina disse: olas]>
+<localhost>@<127.0.0.1>@<60024>#<[joana disse: oi, atarina disse: olas, joao disse: asdasd]>
+<localhost>@<127.0.0.1>@<60038>#<[atarina disse: asd]>
+<localhost>@<127.0.0.1>@<60030>#<[joana disse: asdasd]>

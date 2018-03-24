@@ -15,7 +15,6 @@ public class ClientInformation {
     private String host;
     private String ipAddress;
     private Integer serverPort;
-    private Integer index;
 
     public ClientInformation(String name,  Socket socket) {
         this.name = name;

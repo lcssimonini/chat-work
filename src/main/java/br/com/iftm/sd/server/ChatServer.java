@@ -25,9 +25,9 @@ public class ChatServer extends Thread {
     private Socket socket;
     private DocumentLog logWritter = new DocumentLog();
     private static List<String> clientsMessages = new ArrayList<>();
-    private AllClientInformation allClientInformation = new AllClientInformation();
+    private static AllClientInformation allClientInformation = new AllClientInformation();
 
-    public ChatServer(Socket socket){
+    ChatServer(Socket socket) {
         this.socket = socket;
     }
 

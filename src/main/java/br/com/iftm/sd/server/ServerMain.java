@@ -10,7 +10,7 @@ public class ServerMain {
     private static final String CONNECTED = " Conectou!";
 
     public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(2000);
+        ServerSocket serverSocket = getServerSocket();
 
         while (true) {
             System.out.println(WAITING_CONNECTION);
@@ -20,5 +20,9 @@ public class ServerMain {
             server.start();
             System.out.println(server.printAllClientInformation());
         }
+    }
+
+    private static ServerSocket getServerSocket() throws IOException {
+        return new ServerSocket(2000);
     }
 }

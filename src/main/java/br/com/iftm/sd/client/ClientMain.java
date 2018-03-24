@@ -9,30 +9,34 @@ import java.util.UUID;
 
 public class ClientMain {
 
-    private static final String ENTER_YOUR_NAME = "Entre com o seu nome: ";
-
     public static void main(String[] args) throws IOException {
-        Socket connection = getSocketConnection();
+        Socket conexao = new Socket("localhost",2000);
 
-        PrintStream output = new PrintStream(connection.getOutputStream());
-        BufferedReader keyboardReader = new BufferedReader(new InputStreamReader(System.in));
-        output.print(ENTER_YOUR_NAME);
-        String clientName = keyboardReader.readLine();
-        output.println(clientName);
-        ChatClient chatClient = new ChatClient(connection);
-        chatClient.start();
+        PrintStream saida = new PrintStream(conexao.getOutputStream());
+
+        BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.print("Entre com o seu nome: ");
+
+        String meuNome = teclado.readLine();
+
+        saida.println(meuNome);
+
+        ChatClient t = new ChatClient(conexao);
+
+        t.start();
+
+        String linha;
 
         while (true) {
-            if (chatClient.isDone()) {
+            if (t.isDone()){
                 break;
             }
 
-            output.println("> ");
-            output.println(keyboardReader.readLine());
+            System.out.println("> ");
+            linha = teclado.readLine();
+            saida.println(linha);
         }
-    }
 
-    private static Socket getSocketConnection() throws IOException {
-        return new Socket(UUID.randomUUID().toString(),2000);
     }
 }
