@@ -64,6 +64,8 @@ public class ChatServer extends Thread {
                 clientsMessages.clear();
             }
 
+            clientsMessages.add(clientName + SEPARATOR + LEFT_CHAT);
+            writeMessageLogs(information);
             removeClient(outputStream, clientName);
             socket.close();
 
